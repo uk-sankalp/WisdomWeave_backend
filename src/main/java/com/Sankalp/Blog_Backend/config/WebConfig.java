@@ -13,28 +13,24 @@ public class WebConfig {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-
         CorsConfiguration config = new CorsConfiguration();
 
+        // Allow frontend URLs
         config.setAllowedOriginPatterns(List.of(
-                "http://localhost:*",
-                "https://wisdomweave-frontend.onrender.com"  // add your deployed frontend URL
+                "http://localhost:*", // for local testing
+                "https://wisdomweave-frontend.onrender.com" // deployed frontend
         ));
+
+        // Allow all main HTTP methods
         config.setAllowedMethods(List.of("GET","POST","PUT","PATCH","DELETE","OPTIONS"));
-        config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(true);
 
-        config.setAllowedMethods(List.of(
-                "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"
-        ));
-
+        // Allow all headers
         config.setAllowedHeaders(List.of("*"));
 
+        // Allow cookies / credentials
         config.setAllowCredentials(true);
 
-        UrlBasedCorsConfigurationSource source =
-                new UrlBasedCorsConfigurationSource();
-
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
 
         return source;
